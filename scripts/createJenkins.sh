@@ -12,6 +12,8 @@ oc create -f ../manifests/k8s-jenkins-pvcs.yml
 oc create -f ../manifests/k8s-jenkins-deployment.yml
 oc create -f ../manifests/k8s-jenkins-rbac.yml
 
+oc expose svc/jenkins
+
 # set up the OpenShift registry
 oc new-project sockshop-registry
 oc project sockshop-registry
