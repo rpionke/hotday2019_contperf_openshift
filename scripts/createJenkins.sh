@@ -12,7 +12,11 @@ oc create -f ../manifests/k8s-jenkins-pvcs.yml
 oc create -f ../manifests/k8s-jenkins-deployment.yml
 oc create -f ../manifests/k8s-jenkins-rbac.yml
 
+# create a route for the jenkins service
 oc expose svc/jenkins
+
+# store the jenkins route in a variable
+export JENKINS_URL=$(oc get route jenkins -o=json | jq -r '.spec.host')
 
 # set up the OpenShift registry
 oc new-project sockshop-registry
@@ -32,10 +36,36 @@ export PUSHER_TOKEN=$(oc describe sa pusher | grep -m1 pusher-token | sed -e 's/
 export TOKEN_VALUE=$(oc describe secret $PUSHER_TOKEN | grep token: | sed -e 's/token:[ \t]*//')
 echo $TOKEN_VALUE
 
-# create a route for the jenkins service
+# set up credentials in Jenkins
+export JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
+export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
+export GITHUB_PERSONAL_ACCESS_TOKEN=$(cat creds.json | jq -r '.githubPersonalAccessToken')
+export GITHUB_USER_NAME=$(cat creds.json | jq -r '.githubUserName')
 
-# manual step: add pusher token as credential in jenkins. the id of the credential pair should be 'registry-creds'
+curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+--data-urlencode 'json={
+  "": "0",
+  "credentials": {
+    "scope": "GLOBAL",
+    "id": "registry-creds",
+    "username": "user",
+    "password": "'$TOKEN_VALUE'",
+    "description": "test",
+    "$class": "com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl"
+  }
+}'
 
-# manual step: add credentials with personal access token for github user with id 'git-credentials-acm'
+curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+--data-urlencode 'json={
+  "": "0",
+  "credentials": {
+    "scope": "GLOBAL",
+    "id": "git-credentials-acm",
+    "username": "'$GITHUB_USER_NAME'",
+    "password": "'$GITHUB_PERSONAL_ACCESS_TOKEN'",
+    "description": "test",
+    "$class": "com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl"
+  }
+}'
 
 # manual step: configure perfsig plugin in jenkins (add dynatrace server)
