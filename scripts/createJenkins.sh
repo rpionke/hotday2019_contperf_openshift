@@ -29,7 +29,8 @@ oc policy add-role-to-user system:image-puller system:serviceaccount:production:
 
 oc describe sa pusher
 export PUSHER_TOKEN=$(oc describe sa pusher | grep -m1 pusher-token | sed -e 's/^[ \t]*//')
-oc describe secret $PUSHER_TOKEN
+export TOKEN_VALUE=$(oc describe secret $PUSHER_TOKEN | grep token: | sed -e 's/token:[ \t]*//')
+echo $TOKEN_VALUE
 
 # create a route for the jenkins service
 
