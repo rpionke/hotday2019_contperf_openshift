@@ -1,6 +1,21 @@
 #!/bin/bash
 
 # convenience script if you don't want to apply all yaml files manually
+
+export JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
+export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
+export GITHUB_PERSONAL_ACCESS_TOKEN=$(cat creds.json | jq -r '.githubPersonalAccessToken')
+export GITHUB_USER_NAME=$(cat creds.json | jq -r '.githubUserName')
+export GITHUB_USER_EMAIL=$(cat creds.json | jq -r '.githubUserEmail')
+export DT_TENANT_URL=$(cat creds.json | jq -r '.dynatraceTenant')
+export DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
+
+sed -i '' 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITHUB_USER_EMAIL"'/' ../manifests/k8s-jenkins-deployment.yml
+sed -i '' 's/GITHUB_ORGANIZATION_PLACEHOLDER/'"$GITHUB_ORGANIZATION"'/' ../manifests/k8s-jenkins-deployment.yml
+sed -i '' 's/DOCKER_REGISTRY_IP_PLACEHOLDER/docker-registry.default.svc/' ../manifests/k8s-jenkins-deployment.yml
+sed -i '' 's/DT_TENANT_URL_PLACEHOLDER/'"$DT_TENANT_URL"'/' ../manifests/k8s-jenkins-deployment.yml
+sed -i '' 's/DT_API_TOKEN_PLACEHOLDER/'"$DT_API_TOKEN"'/' ../manifests/k8s-jenkins-deployment.yml
+
 # configure the host path volume plugin
 oc create -f ../manifests/oc-scc-hostpath.yml
 oc patch scc hostpath -p '{"allowHostDirVolumePlugin": true}'
@@ -37,10 +52,6 @@ export TOKEN_VALUE=$(oc describe secret $PUSHER_TOKEN | grep token: | sed -e 's/
 echo $TOKEN_VALUE
 
 # set up credentials in Jenkins
-export JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
-export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
-export GITHUB_PERSONAL_ACCESS_TOKEN=$(cat creds.json | jq -r '.githubPersonalAccessToken')
-export GITHUB_USER_NAME=$(cat creds.json | jq -r '.githubUserName')
 
 curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
 --data-urlencode 'json={
@@ -68,4 +79,6 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
   }
 }'
 
+# create the backend services for the sockshop (user-db shipping-queue)
+./backend-services.sh
 # manual step: configure perfsig plugin in jenkins (add dynatrace server)
