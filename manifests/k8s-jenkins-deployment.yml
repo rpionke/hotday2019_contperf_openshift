@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: jenkins
-        image: bacherfl/jenkins:1.0.0
+        image: bacherfl/jenkins:1.0.1
         imagePullPolicy: Always
         env:
           - name: GITHUB_USER_EMAIL

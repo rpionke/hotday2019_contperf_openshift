@@ -713,7 +713,7 @@
           <string>GITHUB_ORGANIZATION</string>
           <string>GITHUB_ORGANIZATION_PLACEHOLDER</string>
           <string>DT_TENANT_URL</string>
-          <string>DT_TENANT_URL_PLACEHOLDER</string>
+          <string>https://DT_TENANT_URL_PLACEHOLDER</string>
           <string>DT_API_TOKEN</string>
           <string>DT_API_TOKEN_PLACEHOLDER</string>
         </tree-map>
