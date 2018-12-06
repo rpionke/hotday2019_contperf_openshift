@@ -9,6 +9,7 @@ export GITHUB_USER_NAME=$(cat creds.json | jq -r '.githubUserName')
 export GITHUB_USER_EMAIL=$(cat creds.json | jq -r '.githubUserEmail')
 export DT_TENANT_URL=$(cat creds.json | jq -r '.dynatraceTenant')
 export DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
+export GITHUB_ORGANIZATION=$(cat creds.json | jq -r '.githubOrg')
 
 sed -i '' 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITHUB_USER_EMAIL"'/' ../manifests/k8s-jenkins-deployment.yml
 sed -i '' 's/GITHUB_ORGANIZATION_PLACEHOLDER/'"$GITHUB_ORGANIZATION"'/' ../manifests/k8s-jenkins-deployment.yml
@@ -26,7 +27,7 @@ oc create -f ../manifests/k8s-namespaces.yml
 oc create -f ../manifests/k8s-jenkins-pvcs.yml 
 oc create -f ../manifests/k8s-jenkins-deployment.yml
 oc create -f ../manifests/k8s-jenkins-rbac.yml
-
+oc project cicd
 # create a route for the jenkins service
 oc expose svc/jenkins
 
@@ -51,8 +52,11 @@ export PUSHER_TOKEN=$(oc describe sa pusher | grep -m1 pusher-token | sed -e 's/
 export TOKEN_VALUE=$(oc describe secret $PUSHER_TOKEN | grep token: | sed -e 's/token:[ \t]*//')
 echo $TOKEN_VALUE
 
-# set up credentials in Jenkins
+# create the backend services for the sockshop (user-db shipping-queue)
+./backend-services.sh
 
+# set up credentials in Jenkins
+sleep 300
 curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
 --data-urlencode 'json={
   "": "0",
@@ -79,6 +83,4 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
   }
 }'
 
-# create the backend services for the sockshop (user-db shipping-queue)
-./backend-services.sh
 # manual step: configure perfsig plugin in jenkins (add dynatrace server)
