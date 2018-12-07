@@ -65,7 +65,7 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
     "id": "registry-creds",
     "username": "user",
     "password": "'$TOKEN_VALUE'",
-    "description": "test",
+    "description": "Token used by Jenkins to push to the OpenShift container registry",
     "$class": "com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl"
   }
 }'
@@ -78,7 +78,7 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
     "id": "git-credentials-acm",
     "username": "'$GITHUB_USER_NAME'",
     "password": "'$GITHUB_PERSONAL_ACCESS_TOKEN'",
-    "description": "test",
+    "description": "Token used by Jenkins to access the GitHub repositories",
     "$class": "com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl"
   }
 }'
