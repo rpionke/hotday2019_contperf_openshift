@@ -30,7 +30,7 @@ then
 	exit 1
 fi
 
-declare -a repositories=("carts" "catalogue" "front-end" "k8s-deploy-production" "k8s-deploy-staging" "orders" "payment" "queue-master" "shipping" "sockshop-infrastructure" "user")
+declare -a repositories=("carts" "catalogue" "front-end" "k8s-deploy-production" "k8s-deploy-staging" "orders" "payment" "queue-master" "shipping" "jenkins-release-branch" "user")
 
 mkdir repositories
 cd repositories
