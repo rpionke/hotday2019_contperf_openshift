@@ -6,7 +6,7 @@ This repository contains all scripts and instructions needed to deploy the ACM S
 * jq (https://stedolan.github.io/jq/) has to be installed to run the setup script.
 * A GitHub Organization to fork the Sockshop application to
 * A GitHub Personal Access Token
-* OpenShift command line util (oc)
+* OpenShift command line util (oc), and logged in to your cluster
 * Git
 
 ## Instructions:
