@@ -52,8 +52,9 @@ export PUSHER_TOKEN=$(oc describe sa pusher | grep -m1 pusher-token | sed -e 's/
 export TOKEN_VALUE=$(oc describe secret $PUSHER_TOKEN | grep token: | sed -e 's/token:[ \t]*//')
 echo $TOKEN_VALUE
 
-# create the backend services for the sockshop (user-db shipping-queue)
+# create the backend services for the sockshop (user-db shipping-queue) - exchange this for ./create-sockshop.sh to deploy the complete application
 ./backend-services.sh
+#./deploy-sockshop.sh
 
 # set up credentials in Jenkins
 sleep 300
