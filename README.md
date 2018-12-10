@@ -51,7 +51,7 @@ $ oc get route jenkins -n cicd
 
 ![](./assets/jenkins-dashboard.png)
 
-Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the Environment Variables used by the build pipelines have been set correctly:
+Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the Environment Variables used by the build pipelines have been set correctly (Note that the value for the parameter *DT_TENANT_URL* should start with 'https://'):
 
 ![](./assets/jenkins-env-vars.png)
 
