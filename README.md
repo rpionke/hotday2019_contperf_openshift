@@ -15,14 +15,24 @@ This repository contains all scripts and instructions needed to deploy the ACM S
 1. Execute the `~/forkGitHubRepositories.sh` script in your home directory. This script takes the name of the GitHub organization you have created earlier.
 
     ```
-    $ ./forkGitHubRepositories.sh <GitHubOrg>
+    $ ./scripts/forkGitHubRepositories.sh <GitHubOrg>
     ```
 
     This script `clone`s all needed repositories and the uses the `hub` command ([hub](https://hub.github.com/)) to fork those repositories to the passed GitHub organization. After that, the script deletes all repositories and `clone`s them again from the new URL.
     
-1. Insert information in ./scripts/creds.json
+1. Insert information in ./scripts/creds.json by executing *./scripts/creds.sh* - This script will prompt you for all information needed to complete the setup, and populate the file *scripts/creds.json* with them.
 
-1. Execute ./scripts/createJenkins.sh
+
+    ```
+    $ ./scripts/creds.sh
+    ```
+    
+1. Execute *./scripts/createJenkins.sh* - This will deploy a Jenkins service within your OpenShift Cluster, as well as an initial deployment of the sockshop application in the *dev*, *staging* and *production* namespaces.
+
+
+    ```
+    $ ./scripts/createJenkins.sh
+    ```
 
 Manual configuration step in Jenkins: Configure the Performance Signature Plugin (add the Dynatrace Server + API Token).
 
