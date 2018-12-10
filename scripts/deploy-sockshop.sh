@@ -24,4 +24,16 @@ oc apply -f dev/
 oc apply -f staging/
 oc apply -f production/
 
+oc project dev
+oc expose svc/front-end
+oc expose svc/carts
+
+oc project staging
+oc expose svc/front-end
+oc expose svc/carts
+
+oc project production
+oc expose svc/front-end
+oc expose svc/carts
+
 
