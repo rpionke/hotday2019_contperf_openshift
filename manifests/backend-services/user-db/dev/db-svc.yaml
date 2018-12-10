@@ -4,7 +4,7 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: user-db
-  name: user-db-svc
+  name: user-db
   namespace: dev
 spec:
   ports:
