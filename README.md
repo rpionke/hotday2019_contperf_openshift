@@ -34,6 +34,26 @@ This repository contains all scripts and instructions needed to deploy the ACM S
     ```
     $ ./scripts/createJenkins.sh
     ```
+    
+1. Afterwards, you can login using the default Jenkins credentials (admin/admin). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing
+
+```
+$ oc get route jenkins -n cicd
+``` 
+
+1. Verify the installation: In the Jenkins dashboard, you should see the following pipelines:
+
+* k8s-deploy-production
+* k8s-deploy-production-canary
+* k8s-deploy-production-update
+* k8s-deploy-staging
+* A folder called *sockshop*
+
+![](./assets/jenkins-dashboard.png)
+
+Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the Environment Variables used by the build pipelines have been set correctly:
+
+![](./assets/jenkins-env-vars.png)
 
 Manual configuration step in Jenkins: Configure the Performance Signature Plugin (add the Dynatrace Server + API Token).
 
