@@ -8,6 +8,7 @@ This repository contains all scripts and instructions needed to deploy the ACM S
 * A GitHub Personal Access Token
 * OpenShift command line util (oc), and logged in to your cluster
 * Git
+* A Dynatrace Tenant - you will need the Dynatrace Tenant ID and a Dynatrace API Token to execute the setup script.
 
 ## Instructions:
 1. Execute the `~/forkGitHubRepositories.sh` script in your home directory. This script takes the name of the GitHub organization you have created earlier.
