@@ -1,0 +1,11 @@
+---
+tower_package_name: 'ansible-tower'
+tower_package_version: '3.3.1'
+tower_package_release: '1'
+
+kubernetes_deployment_name: ansible-tower
+
+kubernetes_web_image: registry.access.redhat.com/ansible-tower-33/ansible-tower
+kubernetes_task_image: registry.access.redhat.com/ansible-tower-33/ansible-tower
+kubernetes_rabbitmq_image: registry.access.redhat.com/ansible-tower-33/ansible-tower-messaging
+kubernetes_memcached_image: registry.access.redhat.com/ansible-tower-33/ansible-tower-memcached
