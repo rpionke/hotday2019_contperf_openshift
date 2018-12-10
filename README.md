@@ -7,7 +7,7 @@ This repository contains all scripts and instructions needed to deploy the ACM S
 * A GitHub Organization to fork the Sockshop application to
 * A GitHub Personal Access Token
 * OpenShift command line util (oc), and logged in to your cluster
-* Git
+* Git ClI & Hub CLI  
 * A Dynatrace Tenant - you will need the Dynatrace Tenant ID and a Dynatrace API Token to execute the setup script.
 
 ## Instructions:
