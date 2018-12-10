@@ -8,7 +8,7 @@ This repository contains all scripts and instructions needed to deploy the ACM S
 * A GitHub Personal Access Token
 * OpenShift command line util (oc), and logged in to your cluster
 * Git ClI & Hub CLI  
-* A Dynatrace Tenant - you will need the Dynatrace Tenant ID and a Dynatrace API Token to execute the setup script.
+* A Dynatrace Tenant - you will need the Dynatrace Tenant ID, a Dynatrace API Token and Dynatrace PaaS Token to complete the setup.
 
 ## Instructions:
 1. Deploy the Dynattrace OneAgent Operator, as described in https://github.com/Dynatrace/dynatrace-oneagent-operator
