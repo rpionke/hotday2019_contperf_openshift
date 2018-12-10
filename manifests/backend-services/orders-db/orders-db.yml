@@ -10,7 +10,7 @@ spec:
   resources:
     requests:
       storage: 100Mi
-  storageClassName: gold
+status: {}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -65,7 +65,7 @@ spec:
   resources:
     requests:
       storage: 100Mi
-  storageClassName: gold
+status: {}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -120,7 +120,7 @@ spec:
   resources:
     requests:
       storage: 100Mi
-  storageClassName: gold
+status: {}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
