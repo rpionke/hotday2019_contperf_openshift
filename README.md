@@ -55,5 +55,19 @@ Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the
 
 ![](./assets/jenkins-env-vars.png)
 
-Manual configuration step in Jenkins: Configure the Performance Signature Plugin (add the Dynatrace Server + API Token).
+1. Configure the Dynatrace Performance Signature plugin:
+2. Select 'Credentials' in your Jenkins Console.
+2. Select 'Add Credentials' from the global drop-down menu
+2. Kind = Dynatrace API Token
+2. API token = apiToken of your Dynatrace tenant
+2. Select 'OK' to save credential
+
+![](./assets/jenkins-dt-credentials.png)
+
+2. Select 'Manage Jenkins' > 'Configure System' in your Jenkins Console
+2. Scroll down to 'Performance Signature: Dynatrace' and select 'add Dynatrace Server'
+2. Name = 'Dynatrace Tenant'
+2. Dynatrace Server URL = your Dynatrace tenant URL
+2. Dynatrace API Token = select your token you just created
+2. Select 'Save' to store the configuration
 
