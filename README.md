@@ -13,7 +13,7 @@ This repository contains all scripts and instructions needed to deploy the ACM S
 1. Execute the `~/forkGitHubRepositories.sh` script in your home directory. This script takes the name of the GitHub organization you have created earlier.
 
     ```
-    (bastion)$ ./forkGitHubRepositories.sh <GitHubOrg>
+    $ ./forkGitHubRepositories.sh <GitHubOrg>
     ```
 
     This script `clone`s all needed repositories and the uses the `hub` command ([hub](https://hub.github.com/)) to fork those repositories to the passed GitHub organization. After that, the script deletes all repositories and `clone`s them again from the new URL.
