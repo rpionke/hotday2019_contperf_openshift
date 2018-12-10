@@ -49,7 +49,7 @@ $ oc get route jenkins -n cicd
 * k8s-deploy-staging
 * A folder called *sockshop*
 
-![](../assets/jenkins-dashboard.png)
+![](./assets/jenkins-dashboard.png)
 
 
 
