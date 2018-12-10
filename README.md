@@ -73,3 +73,15 @@ Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the
 
 ![](./assets/jenkins-perfsig.png)
 
+1. Verify your deployment of the Sockshop service: Execute the following commands to retrieve the URLs of your front-end in the dev, staging and production environments:
+
+```
+$ oc get route front-end -n dev
+``` 
+```
+$ oc get route front-end -n staging
+``` 
+```
+$ oc get route front-end -n production
+``` 
+
