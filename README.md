@@ -71,3 +71,5 @@ Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the
 2. Dynatrace API Token = select your token you just created
 2. Select 'Save' to store the configuration
 
+![](./assets/jenkins-perfsig.png)
+
