@@ -51,7 +51,9 @@ $ oc get route jenkins -n cicd
 
 ![](./assets/jenkins-dashboard.png)
 
+Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the Environment Variables used by the build pipelines have been set correctly:
 
+![](./assets/jenkins-env-vars.png)
 
 Manual configuration step in Jenkins: Configure the Performance Signature Plugin (add the Dynatrace Server + API Token).
 
