@@ -13,12 +13,12 @@ spec:
       labels:
         name: catalogue-db
     spec:
-      securityContext:
-        privileged: true
-        runAsUser: 0
       containers:
       - name: catalogue-db
         image: dynatracesockshop/catalogue-db
+        securityContext:
+          privileged: true
+          runAsUser: 0
         env:
           - name: MYSQL_ROOT_PASSWORD
             value: fake_password
@@ -56,12 +56,12 @@ spec:
       labels:
         name: catalogue-db
     spec:
-      securityContext:
-        privileged: true
-        runAsUser: 0
       containers:
       - name: catalogue-db
         image: dynatracesockshop/catalogue-db
+        securityContext:
+          privileged: true
+          runAsUser: 0
         env:
           - name: MYSQL_ROOT_PASSWORD
             value: fake_password
@@ -96,15 +96,17 @@ spec:
   replicas: 1
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
       labels:
         name: catalogue-db
     spec:
-      securityContext:
-        privileged: true
-        runAsUser: 0
       containers:
       - name: catalogue-db
         image: dynatracesockshop/catalogue-db
+        securityContext:
+          privileged: true
+          runAsUser: 0
         env:
           - name: MYSQL_ROOT_PASSWORD
             value: fake_password
