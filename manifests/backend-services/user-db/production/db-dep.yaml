@@ -16,6 +16,9 @@ spec:
       labels:
         io.kompose.service: user-db
     spec:
+      securityContext:
+        privileged: true
+        runAsUser: 0
       containers:
       - image: mongo
         name: user-db

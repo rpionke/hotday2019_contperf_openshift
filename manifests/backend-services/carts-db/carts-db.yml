@@ -26,6 +26,9 @@ spec:
       labels:
         name: carts-db
     spec:
+      securityContext:
+        privileged: true
+        runAsUser: 0
       containers:
       - image: mongo
         name: carts-db
@@ -81,6 +84,9 @@ spec:
       labels:
         name: carts-db
     spec:
+      securityContext:
+        privileged: true
+        runAsUser: 0
       containers:
       - image: mongo
         name: carts-db
@@ -136,6 +142,9 @@ spec:
       labels:
         name: carts-db
     spec:
+      securityContext:
+        privileged: true
+        runAsUser: 0
       containers:
       - image: mongo
         name: carts-db

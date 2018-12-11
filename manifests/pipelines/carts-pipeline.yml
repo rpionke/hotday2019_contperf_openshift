@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "carts"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/bacherfl-acm/carts"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
