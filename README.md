@@ -85,8 +85,6 @@ $ oc get route front-end -n staging
 $ oc get route front-end -n production
 ``` 
 
-1. Deploy the Dynattrace OneAgent Operator, as described in https://github.com/Dynatrace/dynatrace-oneagent-operator
-
 ## Setup Tagging of Services and Naming of Process Groups in Dynatrace
 
 This allows you to query service-level metrics (e.g.: Response Time, Failure Rate, or Throughput) automatically based on meta-data that you have passed during a deployment, e.g.: *Service Type* (frontend, backend), *Deployment Stage* (dev, staging, production). Besides, this lab creates tagging rules based on Kubernetes namespace and Pod name.
