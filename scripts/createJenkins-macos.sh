@@ -11,11 +11,11 @@ export DT_TENANT_URL=$(cat creds.json | jq -r '.dynatraceTenant')
 export DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
 export GITHUB_ORGANIZATION=$(cat creds.json | jq -r '.githubOrg')
 
-sed -i 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITHUB_USER_EMAIL"'/' ../manifests/k8s-jenkins-deployment.yml
-sed -i 's/GITHUB_ORGANIZATION_PLACEHOLDER/'"$GITHUB_ORGANIZATION"'/' ../manifests/k8s-jenkins-deployment.yml
-sed -i 's/DOCKER_REGISTRY_IP_PLACEHOLDER/docker-registry.default.svc/' ../manifests/k8s-jenkins-deployment.yml
-sed -i 's/DT_TENANT_URL_PLACEHOLDER/'"$DT_TENANT_URL"'/' ../manifests/k8s-jenkins-deployment.yml
-sed -i 's/DT_API_TOKEN_PLACEHOLDER/'"$DT_API_TOKEN"'/' ../manifests/k8s-jenkins-deployment.yml
+sed -i '' 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITHUB_USER_EMAIL"'/' ../manifests/k8s-jenkins-deployment.yml
+sed -i '' 's/GITHUB_ORGANIZATION_PLACEHOLDER/'"$GITHUB_ORGANIZATION"'/' ../manifests/k8s-jenkins-deployment.yml
+sed -i '' 's/DOCKER_REGISTRY_IP_PLACEHOLDER/docker-registry.default.svc/' ../manifests/k8s-jenkins-deployment.yml
+sed -i '' 's/DT_TENANT_URL_PLACEHOLDER/'"$DT_TENANT_URL"'/' ../manifests/k8s-jenkins-deployment.yml
+sed -i '' 's/DT_API_TOKEN_PLACEHOLDER/'"$DT_API_TOKEN"'/' ../manifests/k8s-jenkins-deployment.yml
 
 # configure the host path volume plugin
 oc create -f ../manifests/oc-scc-hostpath.yml
@@ -53,8 +53,8 @@ export TOKEN_VALUE=$(oc describe secret $PUSHER_TOKEN -n sockshop-registry | gre
 echo $TOKEN_VALUE
 
 # create the backend services for the sockshop (user-db shipping-queue) - exchange this for ./create-sockshop.sh to deploy the complete application
-./backend-services.sh
-#./deploy-sockshop.sh
+#./backend-services.sh
+./deploy-sockshop.sh
 
 # set up credentials in Jenkins
 sleep 300

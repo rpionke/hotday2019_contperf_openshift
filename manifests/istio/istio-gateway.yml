@@ -28,13 +28,12 @@ spec:
         host: front-end
 ---
 apiVersion: "authentication.istio.io/v1alpha1"
-kind: "Policy"
+kind: "MeshPolicy"
 metadata:
   name: "default"
-  namespace: "production"
 spec:
   peers:
-  - mtls: {}
+  - mtls: PERMISSIVE
 ---
 apiVersion: "networking.istio.io/v1alpha3"
 kind: "DestinationRule"
@@ -45,7 +44,7 @@ spec:
   host: "*.production.svc.cluster.local"
   trafficPolicy:
     tls:
-      mode: ISTIO_MUTUAL
+      mode: DISABLE
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
