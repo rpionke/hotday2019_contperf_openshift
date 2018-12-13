@@ -28,18 +28,7 @@ spec:
     spec:
       containers:
       - image: mongo
-        name: carts-db
-        command:
-          #- "numactl"           # Not supported on Minishift's default VM based on boot2docker
-          #- "--interleave=all"  # (enable these two lines when using CentOS/RHEL or most other distros)
-          - "mongod"
-          - "--wiredTigerCacheSizeGB"
-          - "0.1"
-          - "--bind_ip"
-          - "0.0.0.0"
-          - "--replSet"
-          - "MainRepSet"
-          - "--auth"
+        name: carts-db 
         ports:
         - containerPort: 27017
         resources: {}
@@ -95,17 +84,6 @@ spec:
       containers:
       - image: mongo
         name: carts-db
-        command:
-          #- "numactl"           # Not supported on Minishift's default VM based on boot2docker
-          #- "--interleave=all"  # (enable these two lines when using CentOS/RHEL or most other distros)
-          - "mongod"
-          - "--wiredTigerCacheSizeGB"
-          - "0.1"
-          - "--bind_ip"
-          - "0.0.0.0"
-          - "--replSet"
-          - "MainRepSet"
-          - "--auth"
         ports:
         - containerPort: 27017
         resources: {}
@@ -161,17 +139,6 @@ spec:
       containers:
       - image: mongo
         name: carts-db
-        command:
-          #- "numactl"           # Not supported on Minishift's default VM based on boot2docker
-          #- "--interleave=all"  # (enable these two lines when using CentOS/RHEL or most other distros)
-          - "mongod"
-          - "--wiredTigerCacheSizeGB"
-          - "0.1"
-          - "--bind_ip"
-          - "0.0.0.0"
-          - "--replSet"
-          - "MainRepSet"
-          - "--auth"
         ports:
         - containerPort: 27017
         resources: {}
