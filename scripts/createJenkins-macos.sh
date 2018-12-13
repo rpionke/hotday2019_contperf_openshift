@@ -7,15 +7,21 @@ export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
 export GITHUB_PERSONAL_ACCESS_TOKEN=$(cat creds.json | jq -r '.githubPersonalAccessToken')
 export GITHUB_USER_NAME=$(cat creds.json | jq -r '.githubUserName')
 export GITHUB_USER_EMAIL=$(cat creds.json | jq -r '.githubUserEmail')
-export DT_TENANT_URL=$(cat creds.json | jq -r '.dynatraceTenant')
+export DT_TENANT_ID=$(cat creds.json | jq -r '.dynatraceTenant')
 export DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
+export DT_PAAS_TOKEN=$(cat creds.json | jq -r '.dynatracePaaSToken')
 export GITHUB_ORGANIZATION=$(cat creds.json | jq -r '.githubOrg')
+export DT_TENANT_URL="$DT_TENANT_ID.live.dynatrace.com"
 
-sed -i '' 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITHUB_USER_EMAIL"'/' ../manifests/k8s-jenkins-deployment.yml
-sed -i '' 's/GITHUB_ORGANIZATION_PLACEHOLDER/'"$GITHUB_ORGANIZATION"'/' ../manifests/k8s-jenkins-deployment.yml
-sed -i '' 's/DOCKER_REGISTRY_IP_PLACEHOLDER/docker-registry.default.svc/' ../manifests/k8s-jenkins-deployment.yml
-sed -i '' 's/DT_TENANT_URL_PLACEHOLDER/'"$DT_TENANT_URL"'/' ../manifests/k8s-jenkins-deployment.yml
-sed -i '' 's/DT_API_TOKEN_PLACEHOLDER/'"$DT_API_TOKEN"'/' ../manifests/k8s-jenkins-deployment.yml
+
+cp ../manifests/k8s-jenkins-deployment.yml ../manifests/k8s-jenkins-deployment_tmp.yml
+sed -i '' 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITHUB_USER_EMAIL"'/' ../manifests/k8s-jenkins-deployment_tmp.yml
+sed -i '' 's/GITHUB_ORGANIZATION_PLACEHOLDER/'"$GITHUB_ORGANIZATION"'/' ../manifests/k8s-jenkins-deployment_tmp.yml
+sed -i '' 's/DOCKER_REGISTRY_IP_PLACEHOLDER/docker-registry.default.svc/' ../manifests/k8s-jenkins-deployment_tmp.yml
+sed -i '' 's/DT_TENANT_URL_PLACEHOLDER/'"$DT_TENANT_URL"'/' ../manifests/k8s-jenkins-deployment_tmp.yml
+sed -i '' 's/DT_API_TOKEN_PLACEHOLDER/'"$DT_API_TOKEN"'/' ../manifests/k8s-jenkins-deployment_tmp.yml
+rm ../manifests/k8s-jenkins-deployment_tmp.yml
+
 
 # configure the host path volume plugin
 oc create -f ../manifests/oc-scc-hostpath.yml
@@ -52,9 +58,20 @@ export PUSHER_TOKEN=$(oc describe sa pusher -n sockshop-registry | grep -m1 push
 export TOKEN_VALUE=$(oc describe secret $PUSHER_TOKEN -n sockshop-registry | grep token: | sed -e 's/token:[ \t]*//')
 echo $TOKEN_VALUE
 
+# deploy the Dynatrace Operator
+oc adm new-project dynatrace
+oc create -f https://raw.githubusercontent.com/Dynatrace/dynatrace-oneagent-operator/master/deploy/openshift.yaml
+sleep 30
+oc -n dynatrace create secret generic oneagent --from-literal="apiToken=$DT_API_TOKEN" --from-literal="paasToken=$DT_PAAS_TOKEN"
+cp ../manifests/dynatrace/cr.yml ../manifests/dynatrace/cr_tmp.yml
+sed -i '' 's/ENVIRONMENTID/'"$DT_TENANT_ID"'/' ../manifests/dynatrace/cr_tmp.yml
+oc create -f ../manifests/dynatrace/cr_tmp.yaml
+rm ../manifests/dynatrace/cr_tmp.yml
+
 # create the backend services for the sockshop (user-db shipping-queue) - exchange this for ./create-sockshop.sh to deploy the complete application
 #./backend-services.sh
 ./deploy-sockshop.sh
+
 
 # set up credentials in Jenkins
 sleep 300
