@@ -8,4 +8,4 @@ spec:
     authentication: true
     community: false
     prefix: openshift-istio-tech-preview/
-    version: 0.2.0
+    version: 0.3.0

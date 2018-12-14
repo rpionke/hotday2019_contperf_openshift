@@ -1,3 +1,14 @@
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "default"
+  namespace: "production"
+spec:
+  host: "*.production.svc.cluster.local"
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -33,18 +44,8 @@ metadata:
   name: "default"
 spec:
   peers:
-  - mtls: PERMISSIVE
----
-apiVersion: "networking.istio.io/v1alpha3"
-kind: "DestinationRule"
-metadata:
-  name: "default"
-  namespace: "production"
-spec:
-  host: "*.production.svc.cluster.local"
-  trafficPolicy:
-    tls:
-      mode: DISABLE
+  - mtls: 
+      mode: PERMISSIVE
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule

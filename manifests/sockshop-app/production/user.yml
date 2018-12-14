@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: dynatracesockshop/user:0.5.0
+        image: bacherfl/user:0.5.0
         env: 
         - name: DT_TAGS
           value: "product=sockshop"
