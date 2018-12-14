@@ -1,4 +1,6 @@
 #!/bin/bash
+oc adm policy add-scc-to-user anyuid -z default -n production
+oc adm policy add-scc-to-user privileged -z default -n production
 
 export MASTER_URL_TMP=$(oc config view -o=json | jq -r '.["current-context"]' | sed -e 's/[^\/]*\///')
 IFS=':' read -ra MASTER_URL <<< "$MASTER_URL_TMP"
@@ -12,5 +14,3 @@ oc project istio-system
 oc create -f ../manifests/istio/istio-gateway.yml
 
 oc label namespace production istio-injection=enabled
-oc adm policy add-scc-to-user anyuid -z default -n production
-oc adm policy add-scc-to-user privileged -z default -n production
