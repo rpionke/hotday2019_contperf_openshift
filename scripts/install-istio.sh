@@ -10,6 +10,9 @@ oc new-app -f https://raw.githubusercontent.com/Maistra/openshift-ansible/maistr
 
 oc create -f ../manifests/istio/istio-installation.yml
 
+# wait for the istio installation to complete - usually takes quite some time
+sleep 250
+
 oc project istio-system
 oc create -f ../manifests/istio/istio-gateway.yml
 
