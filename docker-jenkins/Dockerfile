@@ -80,6 +80,7 @@ RUN chmod +x /usr/local/bin/jenkins.sh
 
 COPY /configs/jenkins_home_config.xml "$JENKINS_HOME"/config.xml
 COPY /configs/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml "$JENKINS_HOME"/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml
+COPY /configs/de.tsystems.mms.apm.performancesignature.dynatracesaas.DynatraceGlobalConfiguration.xml "$JENKINS_HOME"/de.tsystems.mms.apm.performancesignature.dynatracesaas.DynatraceGlobalConfiguration.xml
 
 ADD /configs/jobs /tmp/jobs
 ADD /configs/users "$JENKINS_HOME"/users

@@ -102,4 +102,16 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
   }
 }'
 
+curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+--data-urlencode 'json={
+  "": "0",
+  "credentials": {
+    "scope": "GLOBAL",
+    "id": "perfsig-api-token",
+    "apiToken": "'$DT_API_TOKEN'",
+    "description": "Dynatrace API Token used by the Performance Signature plugin",
+    "$class": "de.tsystems.mms.apm.performancesignature.dynatracesaas.model.DynatraceApiTokenImpl"
+  }
+}'
+
 # manual step: configure perfsig plugin in jenkins (add dynatrace server)
