@@ -35,7 +35,7 @@ This repository contains all scripts and instructions needed to deploy the ACM S
     $ ./scripts/createJenkins.sh
     ```
     
-1. Afterwards, you can login using the default Jenkins credentials (admin/admin). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing
+1. Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing
 
 ```
 $ oc get route jenkins -n cicd
@@ -54,24 +54,6 @@ $ oc get route jenkins -n cicd
 Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the Environment Variables used by the build pipelines have been set correctly (Note that the value for the parameter *DT_TENANT_URL* should start with 'https://'):
 
 ![](./assets/jenkins-env-vars.png)
-
-1. Configure the Dynatrace Performance Signature plugin:
-2. Select 'Credentials' in your Jenkins Console.
-2. Select 'Add Credentials' from the global drop-down menu
-2. Kind = Dynatrace API Token
-2. API token = apiToken of your Dynatrace tenant
-2. Select 'OK' to save credential
-
-![](./assets/jenkins-dt-credentials.png)
-
-2. Select 'Manage Jenkins' > 'Configure System' in your Jenkins Console
-2. Scroll down to 'Performance Signature: Dynatrace' and select 'add Dynatrace Server'
-2. Name = 'Dynatrace Tenant'
-2. Dynatrace Server URL = your Dynatrace tenant URL
-2. Dynatrace API Token = select your token you just created
-2. Select 'Save' to store the configuration
-
-![](./assets/jenkins-perfsig.png)
 
 1. Verify your deployment of the Sockshop service: Execute the following commands to retrieve the URLs of your front-end in the dev, staging and production environments:
 
