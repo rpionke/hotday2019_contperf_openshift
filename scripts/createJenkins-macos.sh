@@ -66,7 +66,7 @@ sleep 30
 oc -n dynatrace create secret generic oneagent --from-literal="apiToken=$DT_API_TOKEN" --from-literal="paasToken=$DT_PAAS_TOKEN"
 cp ../manifests/dynatrace/cr.yml ../manifests/dynatrace/cr_tmp.yml
 sed -i '' 's/ENVIRONMENTID/'"$DT_TENANT_ID"'/' ../manifests/dynatrace/cr_tmp.yml
-oc create -f ../manifests/dynatrace/cr_tmp.yaml
+oc create -f ../manifests/dynatrace/cr_tmp.yml
 rm ../manifests/dynatrace/cr_tmp.yml
 
 # create the backend services for the sockshop (user-db shipping-queue) - exchange this for ./create-sockshop.sh to deploy the complete application
