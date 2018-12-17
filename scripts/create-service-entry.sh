@@ -1,6 +1,6 @@
 #!/bin/bash
 
-entries=$(curl https://art25310.live.dynatrace.com/api/v1/deployment/installer/agent/connectioninfo?Api-Token=lb8yfSgOSTWmS0xVTavsy | jq -r '.communicationEndpoints[]')
+entries=$(curl https://${1}.live.dynatrace.com/api/v1/deployment/installer/agent/connectioninfo?Api-Token=${2} | jq -r '.communicationEndpoints[]')
 
 mkdir se_tmp
 touch se_tmp/hosts
