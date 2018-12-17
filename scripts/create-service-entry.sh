@@ -10,6 +10,8 @@ touch se_tmp/service_entries
 cat ../manifests/istio/service_entries_tpl/part1 >> se_tmp/service_entries_oneagent.yml
 
 for row in $entries; do
+    row=$(echo $row | sed 's~https://~~')
+    row=$(echo $row | sed 's~/communication~~')
     echo -e "  - $row" >> se_tmp/hosts
     # sed -i '' 's/ENDPOINT_PLACEHOLDER/'"$row"'/' ../manifests/manifests-istio/service_entry_tmpl | echo
     cat ../manifests/istio/service_entry_tmpl | sed 's~ENDPOINT_PLACEHOLDER~'"$row"'~' >> se_tmp/service_entries
