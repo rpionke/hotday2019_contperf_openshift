@@ -92,7 +92,7 @@ RUN chmod 755 /usr/local/bin/install-plugins.sh
 RUN /usr/local/bin/install-plugins.sh \
 kubernetes:1.12.6 \
 kubernetes-credentials-provider:0.10 \
-workflow-job:2.25 \
+workflow-job:2.31 \
 workflow-aggregator:2.6 \
 credentials-binding:1.16 \
 git:3.9.1 \

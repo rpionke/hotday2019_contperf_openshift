@@ -75,7 +75,7 @@ rm ../manifests/dynatrace/cr_tmp.yml
 
 
 # set up credentials in Jenkins
-sleep 300
+sleep 150
 curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
 --data-urlencode 'json={
   "": "0",
