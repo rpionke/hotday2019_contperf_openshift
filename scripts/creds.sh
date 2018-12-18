@@ -33,8 +33,6 @@ read -p "Is this all correct?" -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  sed -i 's/JENKINS_USER_PLACEHOLDER/'"$JUSER"'/' $CREDS 
-  sed -i 's/JENKINS_PASSWORD_PLACEHOLDER/'"$JPWD"'/' $CREDS
   sed -i 's/DYNATRACE_TENANT_PLACEHOLDER/'"$DTENV".live.dynatrace.com'/' $CREDS
   sed -i 's/DYNATRACE_API_TOKEN/'"$DTAPI"'/' $CREDS
   sed -i 's/GITHUB_USER_NAME_PLACEHOLDER/'"$GITU"'/' $CREDS
