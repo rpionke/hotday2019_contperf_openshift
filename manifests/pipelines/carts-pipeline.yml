@@ -7,8 +7,31 @@ spec:
   source:
     git:
       uri: "https://github.com/bacherfl-acm/carts"
+      ref: feature/openshift-buildconfig
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+      env:
+        - name: "BRANCH_NAME"
+          value: "master"
+        - name: "REPOSITORY_NAME"
+          value: "https://github.com/bacherfl-acm/carts"
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "create-release-branch"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/bacherfl-acm/jenkins-release-branch"
       ref: master
   strategy:
     type: JenkinsPipeline
     jenkinsPipelineStrategy:
       jenkinsfilePath: Jenkinsfile
+      env:
+        - name: "BRANCH_NAME"
+          value: "master"
