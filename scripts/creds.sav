@@ -1,6 +1,6 @@
 {
-    "jenkinsUser": "JENKINS_USER_PLACEHOLDER",
-    "jenkinsPassword": "JENKINS_PASSWORD_PLACEHOLDER",
+    "jenkinsUser": "admin",
+    "jenkinsPassword": "AiTx4u8VyUV8tCKk",
     "dynatraceTenant": "DYNATRACE_TENANT_PLACEHOLDER",
     "dynatraceApiToken": "DYNATRACE_API_TOKEN",
     "dynatracePaaSToken": "DYNATRACE_PAAS_TOKEN",

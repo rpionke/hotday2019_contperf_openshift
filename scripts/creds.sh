@@ -2,9 +2,7 @@
 CREDS=./creds.json
 cp ./creds.sav $CREDS
 
-echo Please enter the credentials as requested below:
-read -p "Jenkins User: (default=admin) " JUSER 
-read -p "Jenkins Password: (default=admin) " JPWD  
+echo Please enter the credentials as requested below:  
 read -p "Dynatrace Tenant: (default=$DTENV)" DTENVC
 read -p "Dynatrace API Token: (default=$DTAPI) " DTAPIC
 read -p "github User Name: " GITU 
@@ -12,16 +10,6 @@ read -p "github Personal Access Token: " GITAT
 read -p "github User Email: " GITE
 read -p "github Organization: " GITO
 echo ""
-
-if [[ $JUSER = '' ]]
-then 
-  JUSER='admin'
-fi
-
-if [[ $JPWD = '' ]]
-then
-  JPWD='admin'
-fi
 
 if [[ $DTENV = '' ]]
 then 
@@ -35,8 +23,6 @@ fi
 
 echo ""
 echo "Please confirm all are correct:"
-echo "Jenkins User: $JUSER"
-echo "Jenkins Password: $JPWD"
 echo "Dynatrace Tenant: $DTENV.live.dynatrace.com"
 echo "Dynatrace API TOken: $DTAPI"
 echo "github User Name: $GITU"
