@@ -28,4 +28,4 @@ cat se_tmp/service_entries >> se_tmp/service_entries_oneagent.yml
 
 oc apply -f se_tmp/service_entries_oneagent.yml
 
-rm -r se_tmp
+rm -rf se_tmp

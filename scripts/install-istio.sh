@@ -1,4 +1,7 @@
 #!/bin/bash
+DT_TENANT_ID=$1
+DT_PAAS_TOKEN=$2
+
 oc adm policy add-scc-to-user anyuid -z default -n production
 oc adm policy add-scc-to-user privileged -z default -n production
 
@@ -17,3 +20,5 @@ oc project istio-system
 oc create -f ../manifests/istio/istio-gateway.yml
 
 oc label namespace production istio-injection=enabled
+
+./create-service-entry.sh DT_TENANT_ID DT_PAAS_TOKEN
