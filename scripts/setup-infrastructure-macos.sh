@@ -73,7 +73,6 @@ rm ../manifests/dynatrace/cr_tmp.yml
 #./backend-services.sh
 ./deploy-sockshop.sh
 
-
 # set up credentials in Jenkins
 sleep 150
 curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
@@ -114,4 +113,5 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
   }
 }'
 
-# manual step: configure perfsig plugin in jenkins (add dynatrace server)
+# Install Istio service mesh
+./install-istio.sh $DT_TENANT_ID $DT_PAAS_TOKEN
