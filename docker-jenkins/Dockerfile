@@ -81,6 +81,7 @@ RUN chmod +x /usr/local/bin/jenkins.sh
 COPY /configs/jenkins_home_config.xml "$JENKINS_HOME"/config.xml
 COPY /configs/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml "$JENKINS_HOME"/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml
 COPY /configs/de.tsystems.mms.apm.performancesignature.dynatracesaas.DynatraceGlobalConfiguration.xml "$JENKINS_HOME"/de.tsystems.mms.apm.performancesignature.dynatracesaas.DynatraceGlobalConfiguration.xml
+COPY /configs/io.fabric8.jenkins.openshiftsync.GlobalPluginConfiguration.xml "$JENKINS_HOME"/io.fabric8.jenkins.openshiftsync.GlobalPluginConfiguration.xml
 
 ADD /configs/jobs /tmp/jobs
 ADD /configs/users "$JENKINS_HOME"/users
@@ -102,7 +103,8 @@ performance:3.12 \
 performance-signature-dynatracesaas:3.0.1 \
 performance-signature-ui:3.0.1 \
 performance-signature-viewer:3.0.1 \
-github-branch-source:2.4.0
+github-branch-source:2.4.0 \
+openshift-sync:1.0.31
 
 RUN cp -R /tmp/jobs/* "$JENKINS_HOME"/jobs/
 RUN chown -R ${user} "$JENKINS_HOME"

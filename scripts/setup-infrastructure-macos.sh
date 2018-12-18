@@ -113,5 +113,23 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
   }
 }'
 
+# set up openshift sync plugin
+oc project cicd
+oc create serviceaccount jenkins
+oc adm policy add-cluster-role-to-user edit system:serviceaccount:cicd:jenkins
+export JENKINS_SYNC_TOKEN=$(oc serviceaccounts get-token jenkins -n cicd)
+
+curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+--data-urlencode 'json={
+  "": "0",
+  "credentials": {
+    "scope": "GLOBAL",
+    "id": "openshift-sync",
+    "secret": "'$JENKINS_SYNC_TOKEN'",
+    "description": "Token for the jenkins service account user",
+    "$class": "io.fabric8.jenkins.openshiftsync.OpenShiftToken"
+  }
+}'
+
 # Install Istio service mesh
 ./install-istio.sh $DT_TENANT_ID $DT_PAAS_TOKEN
