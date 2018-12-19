@@ -6,8 +6,8 @@ metadata:
 spec:
   source:
     git:
-      uri: "https://github.com/bacherfl-acm/carts"
-      ref: feature/openshift-buildconfig
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/carts"
+      ref: master
   strategy:
     type: JenkinsPipeline
     jenkinsPipelineStrategy:
@@ -16,7 +16,147 @@ spec:
         - name: "BRANCH_NAME"
           value: "master"
         - name: "REPOSITORY_NAME"
-          value: "https://github.com/bacherfl-acm/carts"
+          value: "https://github.com/GITHUB_ORG_PLACEHOLDER/carts"
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "catalogue"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/catalogue"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+      env:
+        - name: "BRANCH_NAME"
+          value: "master"
+        - name: "REPOSITORY_NAME"
+          value: "https://github.com/GITHUB_ORG_PLACEHOLDER/catalogue"
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "front-end"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/front-end"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+      env:
+        - name: "BRANCH_NAME"
+          value: "master"
+        - name: "REPOSITORY_NAME"
+          value: "https://github.com/GITHUB_ORG_PLACEHOLDER/front-end"
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "orders"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/orders"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+      env:
+        - name: "BRANCH_NAME"
+          value: "master"
+        - name: "REPOSITORY_NAME"
+          value: "https://github.com/GITHUB_ORG_PLACEHOLDER/orders"
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "payment"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/payment"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+      env:
+        - name: "BRANCH_NAME"
+          value: "master"
+        - name: "REPOSITORY_NAME"
+          value: "https://github.com/GITHUB_ORG_PLACEHOLDER/payment"
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "queue-master"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/queue-master"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+      env:
+        - name: "BRANCH_NAME"
+          value: "master"
+        - name: "REPOSITORY_NAME"
+          value: "https://github.com/GITHUB_ORG_PLACEHOLDER/queue-master"
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "shipping"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/shipping"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+      env:
+        - name: "BRANCH_NAME"
+          value: "master"
+        - name: "REPOSITORY_NAME"
+          value: "https://github.com/GITHUB_ORG_PLACEHOLDER/shipping"
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "user"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/user"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+      env:
+        - name: "BRANCH_NAME"
+          value: "master"
+        - name: "REPOSITORY_NAME"
+          value: "https://github.com/GITHUB_ORG_PLACEHOLDER/user"
 ---
 apiVersion: v1
 kind: "BuildConfig"
@@ -26,7 +166,7 @@ metadata:
 spec:
   source:
     git:
-      uri: "https://github.com/bacherfl-acm/jenkins-release-branch"
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/jenkins-release-branch"
       ref: master
   strategy:
     type: JenkinsPipeline
@@ -35,3 +175,48 @@ spec:
       env:
         - name: "BRANCH_NAME"
           value: "master"
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "k8s-deploy-production"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/k8s-deploy-production"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "k8s-deploy-production-canary"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/k8s-deploy-production"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile.canary
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "k8s-deploy-production-update"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/k8s-deploy-production"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile.update

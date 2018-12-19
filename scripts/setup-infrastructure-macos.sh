@@ -131,5 +131,9 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
   }
 }'
 
+cat ../manifests/pipelines/sockshop-pipelines.yml | sed 's~GITHUB_ORG_PLACEHOLDER~'"$GITHUB_ORGANIZATION"'~' >> ../manifests/pipelines/sockshop-pipelines_tmp.yml
+oc apply -f ../manifests/pipelines/sockshop-pipelines_tmp.yml
+rm ../manifests/pipelines/sockshop-pipelines_tmp.yml
+
 # Install Istio service mesh
 ./install-istio.sh $DT_TENANT_ID $DT_PAAS_TOKEN
