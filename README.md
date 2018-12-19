@@ -32,7 +32,7 @@ This repository contains all scripts and instructions needed to deploy the ACM S
 
 
     ```
-    $ ./scripts/createJenkins.sh
+    $ ./scripts/setup-infrastructure.sh
     ```
     
 1. Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing
