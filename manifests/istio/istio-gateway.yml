@@ -36,6 +36,7 @@ spec:
   - route:
     - destination:
         host: front-end.production.svc.cluster.local
+        subset: v1
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
