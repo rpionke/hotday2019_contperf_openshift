@@ -1,0 +1,18 @@
+localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
+
+[all:vars]
+
+# GitHub
+github_user_name=''
+github_personal_access_token=''
+github_user_email=''
+github_organization=''
+
+# Jenkins
+jenkins_user='admin'
+jenkins_password='AiTx4u8VyUV8tCKk'
+
+# Dynatrace
+dt_tenant_id=''
+dt_api_token=''
+dt_paas_token=''

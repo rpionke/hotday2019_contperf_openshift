@@ -1,0 +1,6 @@
+---
+- name: Deploy the ACM Infrastructure.
+  sudo: yes
+  tasks:
+     - name: Execute the installation script
+       local_action: command sh setup-infrastructure-ansible.sh {{jenkins_user}} {{jenkins_password}} {{github_personal_access_token}} {{github_user_name}} {{github_user_email}} {{dt_tenant_id}} {{dt_api_token}} {{dt_paas_token}} {{github_organization}}
