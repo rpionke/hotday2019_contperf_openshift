@@ -220,3 +220,18 @@ spec:
     type: JenkinsPipeline
     jenkinsPipelineStrategy:
       jenkinsfilePath: Jenkinsfile.update
+---
+apiVersion: v1
+kind: "BuildConfig"
+metadata:
+  name: "k8s-deploy-staging"
+  namespace: cicd
+spec:
+  source:
+    git:
+      uri: "https://github.com/GITHUB_ORG_PLACEHOLDER/k8s-deploy-staging"
+      ref: master
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
