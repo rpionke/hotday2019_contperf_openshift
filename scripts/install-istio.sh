@@ -21,4 +21,4 @@ oc create -f ../manifests/istio/istio-gateway.yml
 
 oc label namespace production istio-injection=enabled
 
-./create-service-entry.sh DT_TENANT_ID DT_PAAS_TOKEN
+./create-service-entry.sh $DT_TENANT_ID $DT_PAAS_TOKEN
