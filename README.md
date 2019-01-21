@@ -1,14 +1,59 @@
-# Provision ACM Workshop Cluster on OpenShift
+# Provision Dynatrace PERFORM HOTDAY 2019 Cluster on OpenShift
 
-This repository contains all scripts and instructions needed to deploy the ACM Sockshop demo to OpenShift (3.11).
-## Prerequisites:
+This repository contains all scripts and instructions needed to deploy the Continuous Performance in a Jenkins Pipeline on OpenShift (3.11).
+## Prerequisites
 
-* jq (https://stedolan.github.io/jq/) has to be installed to run the setup script.
+Every attendee must have the following
+* Laptop with a modern browser
+* Laptop with SSH Client to remote into Bastian Host
+* A GitHub Account
+
+Every attendee will receive this information from the workshop instructors
+* StudentID
+* Dynatrace:    Tenant ID, Tenant URL, username, password, PaaS- & API-Token
+* OpenShift:    OpenShift Cluster URL, username & password
+* Bastian host: Hostname, username & pem file to login
+
+Every attendee will create this in the workshop!
 * A GitHub Organization to fork the Sockshop application to
 * A GitHub Personal Access Token
-* OpenShift command line util (oc), and logged in to your cluster
-* Git CLI & [Hub CLI](https://hub.github.com/)
-* A Dynatrace Tenant - you will need the Dynatrace Tenant ID, a Dynatrace API Token and Dynatrace PaaS Token to complete the setup.
+
+## Preparation: Filling out our Cheat Sheet
+
+In our workshop we will run a couple of setup scripts that require the following input values. 
+To have these values available at any time please open a new text document with your text editor of choice (notepad, vi, word, vscode, ...) and copy/paste the following 7 lines into it. Replace the information you already have, e.g: Tenant ID, API Token, PaaS Token:
+
+Tenant ID: 		    abc1234 (your Dynatrace Tenant ID)
+API Token: 		    1234567890ABCDEFabcde (your Dynatrace API Token)
+PaaS Token: 		abcdefABCDEF123456789 (your Dynatrace PaaS Token)
+GitHub Username: 	yourgitusername
+GitHub Token: 		a56777199f8018f38360bc757ab778653bb54312d (your GitHub Token)
+GitHub User email: 	your@email.com
+GitHub Org: 		hotday2019contperfstudentXY
+
+1. GitHub Account
+If you do not yet have a GitHub account please create one via [https://github.com/join]. 
+**Put your GitHub Username and Email into your text document!**
+
+2. GitHub Organization
+In your GitHub Account navigate to [https://github.com/organizations/new]. 
+* For the name of your organization choose hotday2019contperfstudentXY where XY is replaced with your StudentID, e.g: hotday2019contperfstudent17
+* For the billing email use the same email you used for signing up for GitHub. No worries - there won't be any costs and therefore no actual billing
+* You can skip the steps "Invite members" & "Organization details"
+**Put the GitHub Organization Name in your text document**
+
+3. GitHub Token
+In your GitHub Account navigate to [https://github.com/settings/tokens]
+* Click on "Generate new token"
+* Confirm your account password
+* Give the token the name: hotdaytoken
+* Select the first group of checkboxes in the section "repo"
+* Click on "Generate token"
+
+**COPY that newly generated token value and paste it into your text document**
+
+## Preparation: Connecting to the Bastian Host
+
 
 ## Instructions:
 
