@@ -38,8 +38,8 @@ cd repositories
 for repo in "${repositories[@]}"
 do
     #FOLDER=$(echo $repo | cut -d '/' -f 5)
-	echo -e "${YLW}Cloning https://github.com/bacherfl-acm/$repo ${NC}"
-	git clone -q "https://github.com/bacherfl-acm/$repo"
+	echo -e "${YLW}Cloning https://github.com/hotday2019contperfmaster/$repo ${NC}"
+	git clone -q "https://github.com/hotday2019contperfmaster/$repo"
 	cd $repo
 	echo -e "${YLW}Forking $repo to $ORG ${NC}"
     hub fork --org=$ORG
