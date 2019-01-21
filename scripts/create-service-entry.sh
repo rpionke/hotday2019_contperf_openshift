@@ -9,8 +9,8 @@ touch se_tmp/service_entries
 
 cat ../manifests/istio/service_entries_tpl/part1 >> se_tmp/service_entries_oneagent.yml
 
-echo -e "  - $1.live.dynatrace.com" >> se_tmp/hosts
-cat ../manifests/istio/service_entry_tmpl | sed 's~ENDPOINT_PLACEHOLDER~'"$1"'.live.dynatrace.com~' >> se_tmp/service_entries
+echo -e "  - $1.sprint.dynatracelabs.com" >> se_tmp/hosts
+cat ../manifests/istio/service_entry_tmpl | sed 's~ENDPOINT_PLACEHOLDER~'"$1"'.sprint.dynatracelabs.com~' >> se_tmp/service_entries
 
 for row in $entries; do
     row=$(echo $row | sed 's~https://~~')
