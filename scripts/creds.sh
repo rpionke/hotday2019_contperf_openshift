@@ -24,7 +24,7 @@ fi
 
 echo ""
 echo "Please confirm all are correct:"
-echo "Dynatrace Tenant: $DTENV.live.dynatrace.com"
+echo "Dynatrace Tenant: $DTENV"
 echo "Dynatrace API Token: $DTAPI"
 echo "Dynatrace PaaS Token: $DTPAAST"
 echo "github User Name: $GITU"
