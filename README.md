@@ -22,7 +22,7 @@ Every attendee will create this in the workshop!
 
 In our workshop we will run a couple of setup scripts that require the following input values. 
 To have these values available at any time please open a new text document with your text editor of choice (notepad, vi, word, vscode, ...) and copy/paste the following 7 lines into it. Replace the information you already have, e.g: Tenant ID, API Token, PaaS Token:
-
+```
 Tenant ID: 		    abc1234 (your Dynatrace Tenant ID)
 API Token: 		    1234567890ABCDEFabcde (your Dynatrace API Token)
 PaaS Token: 		abcdefABCDEF123456789 (your Dynatrace PaaS Token)
@@ -30,12 +30,12 @@ GitHub Username: 	yourgitusername
 GitHub Token: 		a56777199f8018f38360bc757ab778653bb54312d (your GitHub Token)
 GitHub User email: 	your@email.com
 GitHub Org: 		hotday2019contperfstudentXY
+```
 
 1. GitHub Account
 If you do not yet have a GitHub account please create one via [https://github.com/join]. 
 
-**Put your GitHub Username and Email into your text document!**
-
+**PUT your GitHub Username and Email into your text document!**
 
 2. GitHub Organization
 In your GitHub Account navigate to [https://github.com/organizations/new]. 
@@ -43,8 +43,7 @@ In your GitHub Account navigate to [https://github.com/organizations/new].
 * For the billing email use the same email you used for signing up for GitHub. No worries - there won't be any costs and therefore no actual billing
 * You can skip the steps "Invite members" & "Organization details"
 
-**Put the GitHub Organization Name in your text document**
-
+**PUT the GitHub Organization Name in your text document**
 
 3. GitHub Token
 In your GitHub Account navigate to [https://github.com/settings/tokens]
@@ -55,7 +54,6 @@ In your GitHub Account navigate to [https://github.com/settings/tokens]
 * Click on "Generate token"
 
 **COPY that newly generated token value and paste it into your text document**
-
 
 ## Preparation: Connecting & Configuring the Bastian Host
 Every student gets a bastian host which is a Linux machine that has all required tools and software installed to run the OpenShift installation, e.g: oc, git, hub, js, ...
