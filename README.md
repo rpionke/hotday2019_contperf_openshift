@@ -23,13 +23,13 @@ Every attendee will create this in the workshop!
 In our workshop we will run a couple of setup scripts that require the following input values. 
 To have these values available at any time please open a new text document with your text editor of choice (notepad, vi, word, vscode, ...) and copy/paste the following 7 lines into it. Replace the information you already have, e.g: Tenant ID, API Token, PaaS Token:
 ```
-Tenant ID: 		    abc1234 (your Dynatrace Tenant ID)
-API Token: 		    1234567890ABCDEFabcde (your Dynatrace API Token)
-PaaS Token: 		abcdefABCDEF123456789 (your Dynatrace PaaS Token)
-GitHub Username: 	yourgitusername
-GitHub Token: 		a56777199f8018f38360bc757ab778653bb54312d (your GitHub Token)
-GitHub User email: 	your@email.com
-GitHub Org: 		hotday2019contperfstudentXY
+Tenant ID:          abc1234 (your Dynatrace Tenant ID)
+API Token:          1234567890ABCDEFabcde (your Dynatrace API Token)
+PaaS Token:         abcdefABCDEF123456789 (your Dynatrace PaaS Token)
+GitHub Username:    yourgitusername
+GitHub Token:       a56777199f8018f38360bc757ab778653bb54312d (your GitHub Token)
+GitHub User email:  your@email.com
+GitHub Org:         hotday2019contperfstudentXY
 ```
 
 ### 1. GitHub Account
@@ -62,13 +62,15 @@ Every student gets a bastian host which is a Linux machine that has all required
 The instructor should have given you a bastian host name and a pem file. The bastian host is a Linux machine on EC2 which means the default user is ec2-user. Here are some examples to connect
 
 **Using SSH:**
+
     ```
     $ ssh -i pemfile.pem ec2-user@bastian.studentXY.ocpworkshop.dtinnovationlabs.net
     ```
 
 **Using WSU (Windows Subsystem for Linux)**
 In your Windows Console type: wsl
-Now you have a full Linux bash. Navigate to the directory where you have stored the .pem file and execute this
+Now you have a full Linux bash. Navigate to the directory where you have stored the .pem file and execute this:
+
     ```
     $ ssh -i pemfile.pem ec2-user@bastian.studentXY.ocpworkshop.dtinnovationlabs.net
     ```
@@ -81,12 +83,14 @@ Ask your instructor for a .ppk file. Now you can use Puttygen and connect to you
 
 ### 2. Configure OpenShift CLI to connect to your OpenShift Cluster
 Once you are connected to your bastian host we want to log you into your OpenShift Cluster. You should have received your OpenShift Cluster Hostname, username & password from your instructor. Simply execute this on the command line:
+
     ```
     $ oc login
     ```
 
 ### 3. Clone the Workshop Setup GitHub Repo
 Still on the command line we are going to clone this current GitHub repo into your bastian host home directory. Execute the following in your command line:
+
     ```
     $ github clone https://github.com/grabnerandi/hotday2019_contperf_openshift
     ```
@@ -94,7 +98,7 @@ Still on the command line we are going to clone this current GitHub repo into yo
 
 ## Preparation: Fork SockShop into your GitHub Organization
 
-Execute the `~/forkGitHubRepositories.sh` script in your home directory. This script takes the name of the GitHub organization you have created earlier.
+Execute the `~/forkGitHubRepositories.sh` script in your home directory. This script takes the name of the GitHub organization you have created earlier:
 
     ```
     $ ./scripts/forkGitHubRepositories.sh <GitHubOrg>
@@ -105,8 +109,7 @@ Execute the `~/forkGitHubRepositories.sh` script in your home directory. This sc
 ## Preparation: Deploy to OpenShift & Verify
 
 ### 1. Insert information in ./scripts/creds.json by executing *./scripts/creds.sh*
-This script will prompt you for all information needed to complete the setup, and populate the file *scripts/creds.json* with them. (If for some reason there are problems with this script, you can of course also directly enter the values into creds.json).
-
+This script will prompt you for all information needed to complete the setup, and populate the file *scripts/creds.json* with them. (If for some reason there are problems with this script, you can of course also directly enter the values into creds.json):
 
     ```
     $ ./scripts/creds.sh
@@ -114,19 +117,18 @@ This script will prompt you for all information needed to complete the setup, an
     
 ### 2. Execute *./scripts/setup-infrastructure.sh*
 This will deploy a Jenkins service within your OpenShift Cluster, as well as an initial deployment of the sockshop application in the *dev*, *staging* and *production* namespaces. NOTE: If you use a Mac, you can use the script *setup-infrastructure-macos.sh*.
-*Note that the script will run for some time (~5 mins), since it will wait for Jenkins to boot and set up some credentials via the Jenkins REST API.*
-
+*Note that the script will run for some time (~5 mins), since it will wait for Jenkins to boot and set up some credentials via the Jenkins REST API.*:
 
     ```
     $ ./scripts/setup-infrastructure.sh
     ```
     
 ### 3. Login to Jenkins
-Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing
+Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing:
 
     ```
     $ oc get route jenkins -n cicd
-    ``` 
+    ```
 
 ### 4. Verify the installation
 In the Jenkins dashboard, you should see the following pipelines:
