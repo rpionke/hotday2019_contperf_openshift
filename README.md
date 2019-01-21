@@ -32,12 +32,12 @@ GitHub User email: 	your@email.com
 GitHub Org: 		hotday2019contperfstudentXY
 ```
 
-1. GitHub Account
+### 1. GitHub Account
 If you do not yet have a GitHub account please create one via [https://github.com/join]. 
 
 **PUT your GitHub Username and Email into your text document!**
 
-2. GitHub Organization
+### 2. GitHub Organization
 In your GitHub Account navigate to [https://github.com/organizations/new]. 
 * For the name of your organization choose hotday2019contperfstudentXY where XY is replaced with your StudentID, e.g: hotday2019contperfstudent17
 * For the billing email use the same email you used for signing up for GitHub. No worries - there won't be any costs and therefore no actual billing
@@ -45,7 +45,7 @@ In your GitHub Account navigate to [https://github.com/organizations/new].
 
 **PUT the GitHub Organization Name in your text document**
 
-3. GitHub Token
+### 3. GitHub Token
 In your GitHub Account navigate to [https://github.com/settings/tokens]
 * Click on "Generate new token"
 * Confirm your account password
@@ -58,7 +58,7 @@ In your GitHub Account navigate to [https://github.com/settings/tokens]
 ## Preparation: Connecting & Configuring the Bastian Host
 Every student gets a bastian host which is a Linux machine that has all required tools and software installed to run the OpenShift installation, e.g: oc, git, hub, js, ...
 
-1. Connect to your Bastian Host
+### 1. Connect to your Bastian Host
 The instructor should have given you a bastian host name and a pem file. The bastian host is a Linux machine on EC2 which means the default user is ec2-user. Here are some examples to connect
 
 **Using SSH:**
@@ -79,13 +79,13 @@ Ask your instructor for a .ppk file. Now you can use Puttygen and connect to you
 2. Navigate to Session and enter ec2-user@bastian.studentXY.ocpworkshop.dtinnovationlabs.net
 3. Click on Open
 
-2. Configure OpenShift CLI to connect to your OpenShift Cluster
+### 2. Configure OpenShift CLI to connect to your OpenShift Cluster
 Once you are connected to your bastian host we want to log you into your OpenShift Cluster. You should have received your OpenShift Cluster Hostname, username & password from your instructor. Simply execute this on the command line:
     ```
     $ oc login
     ```
 
-3. Clone the Workshop Setup GitHub Repo
+### 3. Clone the Workshop Setup GitHub Repo
 Still on the command line we are going to clone this current GitHub repo into your bastian host home directory. Execute the following in your command line:
     ```
     $ github clone https://github.com/grabnerandi/hotday2019_contperf_openshift
@@ -104,14 +104,16 @@ Execute the `~/forkGitHubRepositories.sh` script in your home directory. This sc
 
 ## Preparation: Deploy to OpenShift & Verify
 
-1. Insert information in ./scripts/creds.json by executing *./scripts/creds.sh* - This script will prompt you for all information needed to complete the setup, and populate the file *scripts/creds.json* with them. (If for some reason there are problems with this script, you can of course also directly enter the values into creds.json).
+### 1. Insert information in ./scripts/creds.json by executing *./scripts/creds.sh*
+This script will prompt you for all information needed to complete the setup, and populate the file *scripts/creds.json* with them. (If for some reason there are problems with this script, you can of course also directly enter the values into creds.json).
 
 
     ```
     $ ./scripts/creds.sh
     ```
     
-2. Execute *./scripts/setup-infrastructure.sh* - This will deploy a Jenkins service within your OpenShift Cluster, as well as an initial deployment of the sockshop application in the *dev*, *staging* and *production* namespaces. NOTE: If you use a Mac, you can use the script *setup-infrastructure-macos.sh*.
+### 2. Execute *./scripts/setup-infrastructure.sh*
+This will deploy a Jenkins service within your OpenShift Cluster, as well as an initial deployment of the sockshop application in the *dev*, *staging* and *production* namespaces. NOTE: If you use a Mac, you can use the script *setup-infrastructure-macos.sh*.
 *Note that the script will run for some time (~5 mins), since it will wait for Jenkins to boot and set up some credentials via the Jenkins REST API.*
 
 
@@ -119,13 +121,15 @@ Execute the `~/forkGitHubRepositories.sh` script in your home directory. This sc
     $ ./scripts/setup-infrastructure.sh
     ```
     
-3. Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing
+### 3. Login to Jenkins
+Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing
 
     ```
     $ oc get route jenkins -n cicd
     ``` 
 
-4. Verify the installation: In the Jenkins dashboard, you should see the following pipelines:
+### 4. Verify the installation
+In the Jenkins dashboard, you should see the following pipelines:
 
 * k8s-deploy-production
 * k8s-deploy-production-canary
@@ -139,7 +143,8 @@ Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the
 
 ![](./assets/jenkins-env-vars.png)
 
-5. Verify your deployment of the Sockshop service: Execute the following commands to retrieve the URLs of your front-end in the dev, staging and production environments:
+### 5. Verify your deployment of the Sockshop service
+Execute the following commands to retrieve the URLs of your front-end in the dev, staging and production environments:
 
 ```
 $ oc get route front-end -n dev
