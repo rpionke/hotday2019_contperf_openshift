@@ -30,7 +30,7 @@ sed -i 's/DOCKER_REGISTRY_IP_PLACEHOLDER/docker-registry.default.svc/' ../manife
 sed -i 's/DT_TENANT_URL_PLACEHOLDER/'"$DT_TENANT_URL"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
 sed -i 's/DT_API_TOKEN_PLACEHOLDER/'"$DT_API_TOKEN"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
 sed -i 's/NL_WEB_API_KEY_PLACEHOLDER/'"$NL_WEB_API_KEY"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
-sed -i 's/DT_ACCOUNTID_PLACEHOLDER/'"$DT_ACCOUNTID"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
+sed -i 's/DT_ACCOUNTID_PLACEHOLDER/'"$DT_TENANT_ID"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
 
 
 # configure the host path volume plugin
