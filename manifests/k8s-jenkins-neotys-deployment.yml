@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: jenkins
-  namespace: cicd
+  namespace: cicd-neotys
 spec:
   type: LoadBalancer
   ports:
@@ -22,7 +22,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: jenkins-deployment
-  namespace: cicd
+  namespace: cicd-neotys
 spec:
   replicas: 1
   selector:
@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: jenkins
-        image: grabnerandi/jenkinshotday2019:0.1
+        image: hrexed/jenkins-dynatrace-acm:latest
         imagePullPolicy: Always
         env:
           - name: GITHUB_USER_EMAIL
@@ -48,6 +48,10 @@ spec:
             value: DT_TENANT_URL_PLACEHOLDER
           - name: DT_API_TOKEN
             value: DT_API_TOKEN_PLACEHOLDER
+          - name: DT_ACCOUNTID
+            value: DT_ACCOUNTID_PLACEHOLDER
+          - name: NL_WEB_API_KEY
+            value: NL_WEB_API_KEY_PLACEHOLDER
         ports:
         - containerPort: 8080
         - containerPort: 50000

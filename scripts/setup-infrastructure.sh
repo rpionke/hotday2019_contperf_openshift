@@ -11,15 +11,27 @@ export DT_TENANT_ID=$(cat creds.json | jq -r '.dynatraceTenant')
 export DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
 export DT_PAAS_TOKEN=$(cat creds.json | jq -r '.dynatracePaaSToken')
 export GITHUB_ORGANIZATION=$(cat creds.json | jq -r '.githubOrg')
+export NL_WEB_API_KEY=$(cat creds.json | jq -r '.nlwebapikey')
 export DT_TENANT_URL="$DT_TENANT_ID.sprint.dynatracelabs.com"
 
-
+# Prepare Dynatrace Jenkins Deployment YML
 cp ../manifests/k8s-jenkins-deployment.yml ../manifests/k8s-jenkins-deployment_tmp.yml
 sed -i 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITHUB_USER_EMAIL"'/' ../manifests/k8s-jenkins-deployment_tmp.yml
 sed -i 's/GITHUB_ORGANIZATION_PLACEHOLDER/'"$GITHUB_ORGANIZATION"'/' ../manifests/k8s-jenkins-deployment_tmp.yml
 sed -i 's/DOCKER_REGISTRY_IP_PLACEHOLDER/docker-registry.default.svc/' ../manifests/k8s-jenkins-deployment_tmp.yml
 sed -i 's/DT_TENANT_URL_PLACEHOLDER/'"$DT_TENANT_URL"'/' ../manifests/k8s-jenkins-deployment_tmp.yml
 sed -i 's/DT_API_TOKEN_PLACEHOLDER/'"$DT_API_TOKEN"'/' ../manifests/k8s-jenkins-deployment_tmp.yml
+
+# Prepare Neotys Jenkins Deploymnet YML
+cp ../manifests/k8s-jenkins-neotys-deployment.yml ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
+sed -i 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITHUB_USER_EMAIL"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
+sed -i 's/GITHUB_ORGANIZATION_PLACEHOLDER/'"$GITHUB_ORGANIZATION"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
+sed -i 's/DOCKER_REGISTRY_IP_PLACEHOLDER/docker-registry.default.svc/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
+sed -i 's/DT_TENANT_URL_PLACEHOLDER/'"$DT_TENANT_URL"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
+sed -i 's/DT_API_TOKEN_PLACEHOLDER/'"$DT_API_TOKEN"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
+sed -i 's/NL_WEB_API_KEY_PLACEHOLDER/'"$NL_WEB_API_KEY"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
+sed -i 's/DT_ACCOUNTID_PLACEHOLDER/'"$DT_ACCOUNTID"'/' ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
+
 
 # configure the host path volume plugin
 oc create -f ../manifests/oc-scc-hostpath.yml
@@ -28,18 +40,32 @@ oc adm policy add-scc-to-group hostpath system:authenticated
 
 oc create -f ../manifests/k8s-namespaces.yml 
 
+# Install Dynatrace Jenkins Version
 oc create -f ../manifests/k8s-jenkins-pvcs.yml 
 oc create -f ../manifests/k8s-jenkins-deployment_tmp.yml
 oc create -f ../manifests/k8s-jenkins-rbac.yml
 
+# Install Neotys Jenkins Version
+oc create -f ../manifests/k8s-jenkins-neotys-pvcs.yml 
+oc create -f ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
+oc create -f ../manifests/k8s-jenkins-neotys-rbac.yml
+
 rm ../manifests/k8s-jenkins-deployment_tmp.yml
+rm ../manifests/k8s-jenkins-neotys-deployment_tmp.yml
 
 oc project cicd
 # create a route for the jenkins service
 oc expose svc/jenkins
 
 # store the jenkins route in a variable
-export JENKINS_URL=$(oc get route jenkins -o=json | jq -r '.spec.host')
+export JENKINS_DYNATRACE_URL=$(oc get route jenkins -o=json | jq -r '.spec.host')
+
+oc project cicd-neotys
+# create a route for the jenkins service
+oc expose svc/jenkins
+
+# store the jenkins route in a variable
+export JENKINS_NEOTYS_URL=$(oc get route jenkins -o=json | jq -r '.spec.host')
 
 # set up the OpenShift registry
 oc new-project sockshop-registry
@@ -73,9 +99,9 @@ rm ../manifests/dynatrace/cr_tmp.yml
 #./backend-services.sh
 ./deploy-sockshop.sh
 
-# set up credentials in Jenkins
+# set up credentials in Jenkins Dynatrace
 sleep 150
-curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+curl -X POST http://$JENKINS_DYNATRACE_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
 --data-urlencode 'json={
   "": "0",
   "credentials": {
@@ -88,7 +114,7 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
   }
 }'
 
-curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+curl -X POST http://$JENKINS_DYNATRACE_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
 --data-urlencode 'json={
   "": "0",
   "credentials": {
@@ -101,7 +127,7 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
   }
 }'
 
-curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+curl -X POST http://$JENKINS_DYNATRACE_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
 --data-urlencode 'json={
   "": "0",
   "credentials": {
@@ -117,19 +143,79 @@ curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredent
 oc project cicd
 oc create serviceaccount jenkins
 oc adm policy add-cluster-role-to-user edit system:serviceaccount:cicd:jenkins
-export JENKINS_SYNC_TOKEN=$(oc serviceaccounts get-token jenkins -n cicd)
+export JENKINS_DYNATRACE_SYNC_TOKEN=$(oc serviceaccounts get-token jenkins -n cicd)
 
-curl -X POST http://$JENKINS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+curl -X POST http://$JENKINS_DYNATRACE_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
 --data-urlencode 'json={
   "": "0",
   "credentials": {
     "scope": "GLOBAL",
     "id": "openshift-sync",
-    "secret": "'$JENKINS_SYNC_TOKEN'",
+    "secret": "'$JENKINS_DYNATRACE_SYNC_TOKEN'",
     "description": "Token for the jenkins service account user",
     "$class": "io.fabric8.jenkins.openshiftsync.OpenShiftToken"
   }
 }'
+
+# -----------------------------------------------------
+# set up credentials in Jenkins Neotys
+sleep 150
+curl -X POST http://$JENKINS_NEOTYS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+--data-urlencode 'json={
+  "": "0",
+  "credentials": {
+    "scope": "GLOBAL",
+    "id": "registry-creds",
+    "username": "user",
+    "password": "'$TOKEN_VALUE'",
+    "description": "Token used by Jenkins to push to the OpenShift container registry",
+    "$class": "com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl"
+  }
+}'
+
+curl -X POST http://$JENKINS_NEOTYS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+--data-urlencode 'json={
+  "": "0",
+  "credentials": {
+    "scope": "GLOBAL",
+    "id": "git-credentials-acm",
+    "username": "'$GITHUB_USER_NAME'",
+    "password": "'$GITHUB_PERSONAL_ACCESS_TOKEN'",
+    "description": "Token used by Jenkins to access the GitHub repositories",
+    "$class": "com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl"
+  }
+}'
+
+curl -X POST http://$JENKINS_NEOTYS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+--data-urlencode 'json={
+  "": "0",
+  "credentials": {
+    "scope": "GLOBAL",
+    "id": "perfsig-api-token",
+    "apiToken": "'$DT_API_TOKEN'",
+    "description": "Dynatrace API Token used by the Performance Signature plugin",
+    "$class": "de.tsystems.mms.apm.performancesignature.dynatracesaas.model.DynatraceApiTokenImpl"
+  }
+}'
+
+# set up openshift sync plugin
+oc project cicd-neotys
+oc create serviceaccount jenkins
+oc adm policy add-cluster-role-to-user edit system:serviceaccount:cicd-neotys:jenkins
+export JENKINS_NEOTYS_SYNC_TOKEN=$(oc serviceaccounts get-token jenkins -n cicd-neotys)
+
+curl -X POST http://$JENKINS_NEOTYS_URL/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+--data-urlencode 'json={
+  "": "0",
+  "credentials": {
+    "scope": "GLOBAL",
+    "id": "openshift-sync",
+    "secret": "'$JENKINS_NEOTYS_SYNC_TOKEN'",
+    "description": "Token for the jenkins service account user",
+    "$class": "io.fabric8.jenkins.openshiftsync.OpenShiftToken"
+  }
+}'
+
 
 cat ../manifests/pipelines/sockshop-pipelines.yml | sed 's~GITHUB_ORG_PLACEHOLDER~'"$GITHUB_ORGANIZATION"'~' >> ../manifests/pipelines/sockshop-pipelines_tmp.yml
 oc apply -f ../manifests/pipelines/sockshop-pipelines_tmp.yml
