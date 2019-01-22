@@ -13,11 +13,11 @@ echo Please enter the credentials as requested below:
 read -p "Dynatrace Tenant: (default=$DTENV)" DTENVC
 read -p "Dynatrace API Token: (default=$DTAPI) " DTAPIC
 read -p "Dynatrace PaaS Token: (default=$DTPAPI) " DTPAAST
+read -p "NeoLoadWeb Api KEY: (default=$NLAPI)" NLWEBAPI
 read -p "github User Name: " GITU 
 read -p "github Personal Access Token: " GITAT
 read -p "github User Email: " GITE
 read -p "github Organization: " GITO
-read -p "NeoLoadWeb Api KEY: (default=$NLAPI)" NLWEBAPI
 echo ""
 
 if [[ $DTENV = '' ]] || [[ $DTENV = 'DTENV_PLACEHOLDER' ]]
@@ -45,11 +45,11 @@ echo "Please confirm all are correct:"
 echo "Dynatrace Tenant: $DTENV"
 echo "Dynatrace API Token: $DTAPI"
 echo "Dynatrace PaaS Token: $DTPAPI"
+echo "NeoLoad Web API Key :$NLAPI"
 echo "github User Name: $GITU"
 echo "github Personal Access Token: $GITAT"
 echo "github User Email: $GITE"
 echo "github Organization: $GITO" 
-echo "NeoLoad Web API Key :$NLAPI"
 read -p "Is this all correct?" -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
