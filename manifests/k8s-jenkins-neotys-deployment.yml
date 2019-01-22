@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: jenkins
-        image: hrexed/jenkins-dynatrace-acm:latest
+        image: grabnerandi/jenkinshotday2019_neotys:0.1
         imagePullPolicy: Always
         env:
           - name: GITHUB_USER_EMAIL
