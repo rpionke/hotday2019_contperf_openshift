@@ -223,3 +223,9 @@ rm ../manifests/pipelines/sockshop-pipelines_tmp.yml
 
 # Install Istio service mesh
 ./install-istio.sh $DT_TENANT_ID $DT_PAAS_TOKEN
+
+
+# Add Read Polices -> Dynatrace will then pickup Labels as Tags
+oc -n dev policy add-role-to-user view -z default
+oc -n staging policy add-role-to-user view -z default
+oc -n production policy add-role-to-user view -z default
