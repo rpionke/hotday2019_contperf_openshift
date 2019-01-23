@@ -1,0 +1,15 @@
+{
+    "students": [{
+            "tenant": "abc12345",
+            "paastoken": "ABCDEFGH",
+            "apitoken": "123abeaa",
+            "nltoken": "567456ab"
+        },
+        {
+            "tenant": "def6789",
+            "paastoken": "ASDFASF",
+            "apitoken": "2344asdf",
+            "nltoken": "353453ad"
+        }
+    ]
+}
