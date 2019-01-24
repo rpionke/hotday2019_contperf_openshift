@@ -20,22 +20,22 @@ read -p "github User Email: " GITE
 read -p "github Organization: " GITO
 echo ""
 
-if [[ $DTENV = '' ]] || [[ $DTENV = 'DTENV_PLACEHOLDER' ]]
+if [ $DTENVC != '' ]
 then 
   DTENV=$DTENVC
 fi
 
-if [[ $DTAPI = '' ]] || [[ $DTAPI = 'DTAPI_PLACEHOLDER' ]]
+if [ $DTAPIC != '' ]
 then 
   DTAPI=$DTAPIC
 fi
 
-if [[ $DTPAPI = '' ]] || [[ $DTPAPI = 'DTPAPI_PLACEHOLDER' ]]
+if [ $DTPAAST != '' ]
 then 
   DTPAPI=$DTPAAST
 fi
 
-if [[ $NLAPI = '' ]] || [[ $NLAPI = 'NLAPI_PLACEHOLDER' ]]
+if [ $NLWEBAPI != '' ]
 then 
   NLAPI=$NLWEBAPI
 fi

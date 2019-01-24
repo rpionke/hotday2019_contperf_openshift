@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd ~
-
 # Will make sure the bastion host is setup with all necessary tools such as hub and j2
 sudo wget https://github.com/github/hub/releases/download/v2.6.0/hub-linux-amd64-2.6.0.tgz
 tar -xzf hub-linux-amd64-2.6.0.tgz
@@ -14,15 +12,20 @@ mv jq /usr/bin/
 rm -rf hotday2019_contperf_openshift
 git clone https://github.com/grabnerandi/hotday2019_contperf_openshift
 
+STUDENTID=$1
 # now lets update creds with our studentid
 if [[ $STUDENTID = '' ]]
-then 
+then
   STUDENTID=0
 fi
-export DT_TENANT_ID=$(cat init.json | jq -r '.students[$STUDENTID].tenant')
-export DT_PAAS_TOKEN=$(cat init.json | jq -r '.students[$STUDENTID].paastoken')
-export DT_API_TOKEN=$(cat init.json | jq -r '.students[$STUDENTID].apitoken')
-export NL_WEB_API_KEY=$(cat init.json | jq -r '.students[$STUDENTID].nltoken')
+
+echo "Setting up StudentID=$STUDENTID"
+echo $(pwd)
+
+export DT_TENANT_ID=$(cat ./setup-bastion-init.json | jq -r ".students[$STUDENTID].tenant")
+export DT_PAAS_TOKEN=$(cat ./setup-bastion-init.json | jq -r ".students[$STUDENTID].paastoken")
+export DT_API_TOKEN=$(cat ./setup-bastion-init.json | jq -r ".students[$STUDENTID].apitoken")
+export NL_WEB_API_KEY=$(cat ./setup-bastion-init.json | jq -r ".students[$STUDENTID].nltoken")
 
 echo $DT_TENANT_ID
 echo $DT_PAAS_TOKEN

@@ -9,28 +9,33 @@ Every attendee must have the following
 * A GitHub Account
 
 Every attendee will receive this information from the workshop instructors
-* StudentID
-* Dynatrace:    Tenant ID, Tenant URL, username, password, PaaS- & API-Token
+* StudentID:    studentXY: This Student ID is used in your different host names
+* Dynatrace:    Tenant ID, Tenant URL, username, password
 * OpenShift:    OpenShift Cluster URL, username & password
-* Bastian host: Hostname, username & pem file to login
+* Bastian host: Hostname, username, pem & ppk file to remote into this machine
+* Neotys:       Neoload Username
 
-Every attendee will create this in the workshop!
+Together in the workshop, every attendee will create this
 * A GitHub Organization to fork the Sockshop application to
 * A GitHub Personal Access Token
+* Automatically Deploy OneAgent, Sockshop and Jenkins on your OpenShift Cluster
 
 ## Preparation: Filling out our Cheat Sheet
 
-In our workshop we will run a couple of setup scripts that require the following input values. 
-To have these values available at any time please open a new text document with your text editor of choice (notepad, vi, word, vscode, ...) and copy/paste the following 7 lines into it. Replace the information you already have, e.g: Tenant ID, API Token, PaaS Token:
+In our workshop you will log into a "Bastion Host" that hosts a couple of setup scripts.
+These scripts need values such as your Dynatrace Tenant, couple of tokens, your GitHub Organization & GitHub Token, ...
+We already pre-propulated some of these values but you still need these:
 ```
-Tenant ID:          abc1234 (your Dynatrace Tenant ID)
-API Token:          1234567890ABCDEFabcde (your Dynatrace API Token)
-PaaS Token:         abcdefABCDEF123456789 (your Dynatrace PaaS Token)
+DT Tenant URL:      https://ABC12345.sprint.dynatracelabs.com
+OS Cluster URL:     https://master.studentXY.ocpworkshop.dtinnovationlabs.net
+Bastion Host:       bastion.studentXY.ocpworkshop.dtinnovationlabs.net
 GitHub Username:    yourgitusername
 GitHub Token:       a56777199f8018f38360bc757ab778653bb54312d (your GitHub Token)
 GitHub User email:  your@email.com
 GitHub Org:         hotday2019contperfstudentXY
 ```
+
+As we walk through the next steps please put these values in a text document - thats our cheat sheet :-)
 
 ### 1. GitHub Account
 If you do not yet have a GitHub account please create one via [https://github.com/join]. 
@@ -55,11 +60,25 @@ In your GitHub Account navigate to [https://github.com/settings/tokens]
 
 **COPY that newly generated token value and paste it into your text document**
 
+## Preparation: Access your Dynatrace Tenant and OpenShift Cluster
+
+Let's validate that the Dynatrace Tenant and OpenShift Cluster we assigned to you are accessible
+
+### 1. Login to Dynatrace Tenant
+
+Browser to your <DT Tenant URL> and login with the username & password provided! This shoudl be a clean fresh tenant with no agents installed!
+
+### 2. Login to OpenShift
+
+Browser to your <OS Cluster URL> and login with the OpenShift username & password provided! You shoudl be able to login and see currently installed projects!
+
 ## Preparation: Connecting & Configuring the Bastian Host
-Every student gets a bastian host which is a Linux machine that has all required tools and software installed to run the OpenShift installation, e.g: oc, git, hub, js, ...
+Every student has a "bastion host" which is a Linux machine that has all required tools and software installed to deploy our sample application on OpenShift installation, e.g: oc, git, hub, js, ...
 
 ### 1. Connect to your Bastian Host
-The instructor should have given you a bastian host name and a pem file. The bastian host is a Linux machine on EC2 which means the default user is ec2-user. Here are some examples to connect
+
+Make sure you have your <Bastion Host> hostname ready. The bastion host is a Linux machine on EC2 which means the default user is ec2-user. 
+Here are some examples to connect (make sure you use your <Bastion Host> host name)
 
 **Using SSH:**
 
