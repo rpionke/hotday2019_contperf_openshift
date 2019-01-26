@@ -100,9 +100,9 @@ git:3.9.1 \
 google-oauth-plugin:0.6 \
 google-source-plugin:0.3 \
 performance:3.12 \
-performance-signature-dynatracesaas:3.0.3 \
-performance-signature-ui:3.0.3 \
-performance-signature-viewer:3.0.3 \
+performance-signature-dynatracesaas:3.1.0 \
+performance-signature-ui:3.1.0 \
+performance-signature-viewer:3.1.0 \
 github-branch-source:2.4.0 \
 openshift-sync:1.0.31
 

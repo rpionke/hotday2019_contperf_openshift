@@ -83,7 +83,7 @@ Here are some examples to connect (make sure you use your <Bastion Host> host na
 **Using SSH:**
 
     ```
-    $ ssh -i pemfile.pem ec2-user@bastian.studentXY.ocpworkshop.dtinnovationlabs.net
+    $ ssh -i hotday.pem ec2-user@bastian.studentXY.ocpworkshop.dtinnovationlabs.net
     ```
 
 **Using WSU (Windows Subsystem for Linux)**
@@ -91,21 +91,25 @@ In your Windows Console type: wsl
 Now you have a full Linux bash. Navigate to the directory where you have stored the .pem file and execute this:
 
     ```
-    $ ssh -i pemfile.pem ec2-user@bastian.studentXY.ocpworkshop.dtinnovationlabs.net
+    $ ssh -i hotday.pem ec2-user@bastian.studentXY.ocpworkshop.dtinnovationlabs.net
     ```
 
 **Using Putty (on Windows)**
-Ask your instructor for a .ppk file. Now you can use Puttygen and connect to your Bastian Host
+Ask your instructor for a hotday.ppk file. Now you can use Puttygen and connect to your Bastian Host
 1. Navigate to Connection -> SSH -> Auth and there browse for the .ppk file
 2. Navigate to Session and enter ec2-user@bastian.studentXY.ocpworkshop.dtinnovationlabs.net
 3. Click on Open
 
-### 2. Configure OpenShift CLI to connect to your OpenShift Cluster
-Once you are connected to your bastian host we want to log you into your OpenShift Cluster. You should have received your OpenShift Cluster Hostname, username & password from your instructor. Simply execute this on the command line:
+### 2. Validate Initial Setup
+Once you are connected to your bastian host we want to validate if we have prepared it correctly. Lets validate that the home directory of your ec2-user has the following directory: hotday2019_contperf_openshift. Simply execute an ls-l
+```
+$ ls -l
+```
 
-    ```
-    $ oc login
-    ```
+If you dont see that directory lets just pull it down from git by executing the following command
+```
+git clone https://github.com/grabnerandi/hotday2019_openshift
+```
 
 ### 3. Clone the Workshop Setup GitHub Repo
 Still on the command line we are going to clone this current GitHub repo into your bastian host home directory. Execute the following in your command line:
