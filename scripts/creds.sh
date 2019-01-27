@@ -9,7 +9,7 @@ export NLAPI=NLAPI_PLACEHOLDER
 CREDS=./creds.json
 cp ./creds.sav $CREDS
 
-echo Please enter the credentials as requested below (or hit ENTER to accept default):  
+echo "Please enter the credentials as requested below (or hit ENTER to accept default):"
 read -p "Dynatrace Tenant: (default=$DTENV)" DTENVC
 read -p "Dynatrace API Token: (default=$DTAPI) " DTAPIC
 read -p "Dynatrace PaaS Token: (default=$DTPAPI) " DTPAAST
