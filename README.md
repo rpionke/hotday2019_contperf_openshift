@@ -30,6 +30,7 @@ We already pre-propulated some of these values but you still need these:
 DT Tenant URL:      https://ABC12345.sprint.dynatracelabs.com
 OS Cluster URL:     https://master.studentXY.ocpworkshop.dtinnovationlabs.net
 Bastion Host:       bastion.studentXY.ocpworkshop.dtinnovationlabs.net
+Neoload User:       perform2019+XX@neotys.com
 GitHub Username:    yourgitusername
 GitHub Token:       a56777199f8018f38360bc757ab778653bb54312d (your GitHub Token)
 GitHub User email:  your@email.com
@@ -109,50 +110,44 @@ $ ls -l
 
 If you dont see that directory lets just pull it down from git by executing the following command
 ```
-git clone https://github.com/grabnerandi/hotday2019_openshift
+git clone https://github.com/grabnerandi/hotday2019_contperf_openshift
 ```
-
-### 3. Clone the Workshop Setup GitHub Repo
-Still on the command line we are going to clone this current GitHub repo into your bastian host home directory. Execute the following in your command line:
-
-    ```
-    $ github clone https://github.com/grabnerandi/hotday2019_contperf_openshift
-    ```
-
 
 ## Preparation: Fork SockShop into your GitHub Organization
 
 Execute the `~/forkGitHubRepositories.sh` script in your home directory. This script takes the name of the GitHub organization you have created earlier:
 
-    ```
-    $ ./scripts/forkGitHubRepositories.sh <GitHubOrg>
-    ```
+```
+$ ./scripts/forkGitHubRepositories.sh <GitHubOrg>
+```
 
-    This script `clone`s all needed repositories and the uses the `hub` command ([hub](https://hub.github.com/)) to fork those repositories to the passed GitHub organization. After that, the script deletes all repositories and `clone`s them again from the new URL.
+This script `clone`s all needed repositories and the uses the `hub` command ([hub](https://hub.github.com/)) to fork those repositories to the passed GitHub organization. After that, the script deletes all repositories and `clone`s them again from the new URL.
+The script will prompt you for your GitHub username & password to execute this activity!
 
 ## Preparation: Deploy to OpenShift & Verify
 
 ### 1. Insert information in ./scripts/creds.json by executing *./scripts/creds.sh*
 This script will prompt you for all information needed to complete the setup, and populate the file *scripts/creds.json* with them. (If for some reason there are problems with this script, you can of course also directly enter the values into creds.json):
 
-    ```
-    $ ./scripts/creds.sh
-    ```
+```
+$ ./scripts/creds.sh
+```
     
 ### 2. Execute *./scripts/setup-infrastructure.sh*
 This will deploy a Jenkins service within your OpenShift Cluster, as well as an initial deployment of the sockshop application in the *dev*, *staging* and *production* namespaces. NOTE: If you use a Mac, you can use the script *setup-infrastructure-macos.sh*.
 *Note that the script will run for some time (~5 mins), since it will wait for Jenkins to boot and set up some credentials via the Jenkins REST API.*:
 
-    ```
-    $ ./scripts/setup-infrastructure.sh
-    ```
+```
+$ ./scripts/setup-infrastructure.sh
+```
     
 ### 3. Login to Jenkins
-Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing:
+Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). 
+**It's recommended to change** these credentials right after the first login. You can get the URL of Jenkins by executing:
 
-    ```
-    $ oc get route jenkins -n cicd
-    ```
+```
+$ oc get route jenkins -n cicd
+```
 
 ### 4. Verify the installation
 In the Jenkins dashboard, you should see the following pipelines:
@@ -182,7 +177,17 @@ $ oc get route front-end -n staging
 $ oc get route front-end -n production
 ``` 
 
-## Setup Tagging of Services and Naming of Process Groups in Dynatrace
+## Ready for the workshop!
+
+In the rest of the workshop we are going to 
+1. Configure Tags, Service Names and Management Zones in Dynatrace to better organize our monitoring entities
+2. Deploy different versions of the Carts Service
+3. Run JMeter Performance Tests through Jenkins which are evaluated through our Performance Signature Plugin
+4. Run Neotys Performnace Tests through Jenkins and exploring the integration options of Dynatrace with Load Testing Tools in more details
+5. Learn about best practices for Continuous Performance Engineering with Dynatrace
+
+
+## General Best Practices for Dynatrace on OpenShift/Kubernetes: Tagging & Naming Rules
 
 This allows you to query service-level metrics (e.g.: Response Time, Failure Rate, or Throughput) automatically based on meta-data that you have passed during a deployment, e.g.: *Service Type* (frontend, backend), *Deployment Stage* (dev, staging, production). Besides, this lab creates tagging rules based on Kubernetes namespace and Pod name.
 
@@ -245,5 +250,3 @@ It will take about 30 seconds until the tags are automatically applied to the se
 * To deploy updates you made to your services to the development environment, you can follow the instructions at this location: (Deploy to dev)[https://github.com/dynatrace-innovationlab/acl-docs/tree/master/workshop/05_Developing_Microservices/02_Deploy_Microservice_to_Dev].
 
 * To deploy your changes to the staging environment, please refer to the instructions at this location: (Deploy to Staging)[https://github.com/dynatrace-innovationlab/acl-docs/tree/master/workshop/05_Developing_Microservices/03_Deploy_Microservice_to_Staging].
-
-
