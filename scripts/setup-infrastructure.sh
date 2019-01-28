@@ -94,6 +94,9 @@ cp ../manifests/dynatrace/cr.yml ../manifests/dynatrace/cr_tmp.yml
 sed -i 's/ENVIRONMENTID/'"$DT_TENANT_ID"'/' ../manifests/dynatrace/cr_tmp.yml
 oc create -f ../manifests/dynatrace/cr_tmp.yml
 rm ../manifests/dynatrace/cr_tmp.yml
+# lets give OpenShift time to download the OneAgent container so that Sockshop will automatically be fully instrumented!
+sleep 90
+
 
 # create the backend services for the sockshop (user-db shipping-queue) - exchange this for ./create-sockshop.sh to deploy the complete application
 #./backend-services.sh
