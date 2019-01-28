@@ -86,8 +86,9 @@ export TOKEN_VALUE=$(oc describe secret $PUSHER_TOKEN -n sockshop-registry | gre
 echo $TOKEN_VALUE
 
 # deploy the Dynatrace Operator
+LATEST_RELEASE=$(curl -s https://api.github.com/repos/dynatrace/dynatrace-oneagent-operator/releases/latest | grep tag_name | cut -d '"' -f 4)
 oc adm new-project dynatrace
-oc create -f https://raw.githubusercontent.com/Dynatrace/dynatrace-oneagent-operator/master/deploy/openshift.yaml
+oc create -f https://raw.githubusercontent.com/Dynatrace/dynatrace-oneagent-operator/$LATEST_RELEASE/deploy/openshift.yaml
 sleep 30
 oc -n dynatrace create secret generic oneagent --from-literal="apiToken=$DT_API_TOKEN" --from-literal="paasToken=$DT_PAAS_TOKEN"
 cp ../manifests/dynatrace/cr.yml ../manifests/dynatrace/cr_tmp.yml
